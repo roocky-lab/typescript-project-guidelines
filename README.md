@@ -31,7 +31,7 @@ $ npm install
 
 ## 工程搭建
  
-1. 安装TypeScript构建工具
+### 1. 安装TypeScript构建工具
 
 ```bash
 # 建议局部安装
@@ -52,13 +52,70 @@ $ npx ts-node <xxx.ts>
 $ node -r ts-node/register <xxx.ts>
 ```
 
-此外，TS-Node还会简化VS Code及Mocha的配置，这些后面会讲到。
+此外，TS-Node还会简化VS Code及Mocha的配置，后面会讲到。
+
+
+### 2. 配置在VS Code中调试TypeScript
+
+让VS Code支持TypeScript脚本的构建、单步调试，借用TS-Node是目前最简便的方法，避免直接配置JavaScript、SourceMap等中间文件的烦恼。  
+
+在工程根目录创建`.vscode`文件夹，新建启动调试的配置文件`launch.json`:
+
+```bash 
+$ code .vscode/launch.json
+```
+
+下面是基本配置，入口文件`app.ts`可以自由指定，`${workspaceFolder}`指工程根目录：
+
+**.vscode/launch.json**
+```json
+// node -r ts-node/register app.ts
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Program",
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+      "args": [
+        "${workspaceFolder}/app.ts"
+      ]
+    }
+  ]
+}
+```
+
+上述`.vscode/launch.json`的配置，也可以通过界面操作，具体步骤及参数的含义等，可参考：
+- [VSCode Launch configurations](https://code.visualstudio.com/docs/editor/debugging#_launch-configurations)
+- [TS-Node for VSCode](https://github.com/TypeStrong/ts-node#visual-studio-code)
+
+配置完毕，在工程根目录创建`app.ts`，敲上一段TypeScript版Hello World:
+
+```bash
+code app.ts
+```
+
+**app.ts**
+```javascript
+function hello(who: string): string {
+  return `Hello, ${who}!`
+}
+
+console.log(hello('World'))
+```
+
+按下`F5`构建输出，然后加个断点，再跑一遍。  
+
 
 ## Todo
 
 - node(master):
   - [X] ~~安装TypeScript构建工具~~
-  - [ ] 配置在VS Code中构建、调试
+  - [X] ~~配置在VS Code中调试TypeScript~~
   - [ ] 强制StandardJS编码风格，开启问题提示及自动纠错
   - [ ] 集成单元测试工具：Mocha框架、power-assert断言库及Istanbul覆盖率统计
   - [ ] 集成API文档自动生成工具：TypeDoc
@@ -66,7 +123,4 @@ $ node -r ts-node/register <xxx.ts>
 - server：
   - [ ] 安装Koa及基本中间件
   - [ ] 集成Passport身份认证库
-  - [ ] ...
-
-- react
   - [ ] ...
