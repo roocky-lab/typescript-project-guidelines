@@ -1,4 +1,4 @@
-function hello(who: string): string {
+function hello (who: string): string {
   return `Hello, ${who}!`
 }
 

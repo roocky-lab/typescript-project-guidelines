@@ -110,13 +110,85 @@ console.log(hello('World'))
 
 按下`F5`构建输出，然后加个断点，再跑一遍。  
 
+### 3. 强制StandardJS编码风格
+
+保持一致的编码规范，好处无需赘述。但关于规范的细则、争议及一堆`eslintrc*`，让人不胜其扰。  
+直接使用[StandardJS风格](https://github.com/standard/standard/blob/master/docs/README-zhcn.md)，规则一致、自动纠错、开箱即用。  
+
+安装[StandardJS](https://github.com/standard/standard#install)及[TypeScript插件](https://github.com/standard/standard#typescript)
+
+```bash
+$ npm install --save-dev standard
+$ npm install --save-dev @typescript-eslint/parser @typescript-eslint/eslint-plugin
+```
+
+配置文件中，开启StandardJS的TypeScript扩展插件:
+
+**package.json**
+```json
+ {
++  "standard": {
++    "parser": "@typescript-eslint/parser",
++    "plugins": [ "@typescript-eslint/eslint-plugin" ]
++  }
+ }
+```
+
+现在，用命令可以格式化任意TypeScript脚本：
+
+```bash
+$ npx standard *.ts
+```
+
+更多的时候，我们希望是在VS Code中自动提示与修正。由此，应用商店搜索安装[StandardJS插件](https://marketplace.visualstudio.com/items?itemName=chenxsan.vscode-standardjs)，或通过命令安装：
+
+```bash
+$ code --install-extension chenxsan.vscode-standardjs
+```
+
+创建VS Code本地工作区配置文件`.vscode/settings.json`
+
+```bash
+$ code .vscode/settings.json
+```
+
+**.vscode/settings.json**
+
+```json
+{
+  // 避免与StandardJS冲突
+  "javascript.validate.enable": false,
+
+  // *.js/*.ts文件，在保存时自动修正
+  "standard.autoFixOnSave": true,
+  "standard.validate": [
+    "javascript",
+    "javascriptreact",
+    {
+      "language": "typescript",
+      "autoFix": true
+    }
+  ]
+}
+```
+
+再给VS Code添加段落补全(snippets)功能，安装[JavaScript (ES6) code snippets](https://marketplace.visualstudio.com/items?itemName=xabikos.JavaScriptSnippets)插件：
+
+```bash
+$ code --install-extension xabikos.javascriptsnippets
+```
+
+最后，重启VS Code，打开`app.ts`，随手写些代码：
+- 尝试输入`fof` / `clg`等缩写，然后敲`Tab`，看段落补全效果；
+- 把代码的缩进、换行、命名弄乱，`Ctrl + S`保存时，观察自动修正效果。  
+
 
 ## Todo
 
 - node(master):
   - [X] ~~安装TypeScript构建工具~~
   - [X] ~~配置在VS Code中调试TypeScript~~
-  - [ ] 强制StandardJS编码风格，开启问题提示及自动纠错
+  - [X] ~~强制StandardJS编码风格，开启提示、自动修正及段落补全~~
   - [ ] 集成单元测试工具：Mocha框架、power-assert断言库及Istanbul覆盖率统计
   - [ ] 集成API文档自动生成工具：TypeDoc
 

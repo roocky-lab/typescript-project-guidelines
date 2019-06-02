@@ -1,0 +1,15 @@
+{
+  // 避免与StandardJS冲突
+  "javascript.validate.enable": false,
+
+  // *.js/*.ts文件，保存自动纠错
+  "standard.autoFixOnSave": true,
+  "standard.validate": [
+    "javascript",
+    "javascriptreact",
+    {
+      "language": "typescript",
+      "autoFix": true
+    }
+  ]
+}
