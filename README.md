@@ -156,8 +156,10 @@ $ code .vscode/settings.json
 
 ```json
 {
+  // 避免默认校验与StandardJS冲突
   "javascript.validate.enable": false,
 
+  // *.js/*.ts文件，保存自动修正
   "standard.autoFixOnSave": true,
   "standard.validate": [
     "javascript",
@@ -275,6 +277,60 @@ $ npm run test
 $ npm run cov
 ```
 
+### 5. 从严配置TypeScript编译选项
+
+一开始没有对TypeScript进行严格配置，是避免给读者设立太高门槛。现在，我们从严配置，以便编译阶段就发现大部分错误。工程根目录创建`tsconfig.json`:
+
+```bash
+$ code tsconfig.json
+```
+
+下面是一份针对Node.js环境的从严的配置，类型不匹配或潜在语法错误，都无法通过编译:
+
+**tsconfig.json**
+```json
+{
+  "compilerOptions": {
+    /* 基本选项 */
+    "target": "ES2017",
+    "module": "commonjs",
+
+    /* 严格的类型检查选项 */
+    "strict": true,
+    "suppressImplicitAnyIndexErrors": true,
+
+    /* 附加的检查 */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* 保留转换后*.js的可读性 */
+    "removeComments": false,
+    "preserveConstEnums": true,
+
+    /* 模块解析选项 */
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "node_modules/*"
+      ]
+    }
+  }
+}
+```
+
+上述配置可以满足大部分环境。想了解具体选项的含义，可以参考：
+- [Typescript Handbook（中文版）：编译选项](https://zhongsp.gitbooks.io/typescript-handbook/content/doc/handbook/Compiler%20Options.html)
+- [TypeScript Compiler Options](http://www.typescriptlang.org/docs/handbook/compiler-options.html)
+- [microsoft/vscode/tsconfig.*.json](https://github.com/microsoft/vscode/tree/master/src)
+- [深入理解 TypeScript：编译上下文](https://jkchao.github.io/typescript-book-chinese/project/compilationContext.html#tsconfig-json)
+- [TypeScript 2.4: String Enums](https://mariusschulz.com/blog/typescript-2-4-string-enums)
+- [typescript 3.2 新编译选项strictBindCallApply](https://segmentfault.com/a/1190000017720368?utm_source=tag-newest)
+- [noImplicitAny regression in 1.3](https://github.com/Microsoft/TypeScript/issues/1232)
+
 
 ## Todo
 
@@ -283,7 +339,8 @@ $ npm run cov
   - [X] ~~配置在VS Code中调试TypeScript~~
   - [X] ~~强制StandardJS编码风格，开启提示、自动修正及段落补全~~
   - [X] ~~集成单元测试工具：Mocha框架、power-assert断言库及Istanbul覆盖率统计~~
-  - [ ] 集成API文档自动生成工具：TypeDoc
+  - [X] ~~从严配置TypeScript编译选项~~
+  - [ ] 集成API文档生成工具：TypeDoc
 
 - server：
   - [ ] 安装Koa及基本中间件

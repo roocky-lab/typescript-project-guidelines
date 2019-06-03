@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    /* 基本选项 */
+    "target": "ES2017",
+    "module": "commonjs",
+
+    /* 严格的类型检查选项 */
+    "strict": true,
+    "suppressImplicitAnyIndexErrors": true,
+
+    /* 附加的检查 */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* 保留转换后*.js的可读性 */
+    "removeComments": false,
+    "preserveConstEnums": true,
+
+    /* 模块解析选项 */
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "node_modules/*"
+      ]
+    }
+  }
+}
