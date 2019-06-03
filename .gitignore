@@ -2,3 +2,5 @@
 .cache
 Thumbs.db
 node_modules
+
+**/.nyc_output

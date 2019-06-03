@@ -1,7 +1,14 @@
 {
   "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^0.1.3",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.0.4",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "@typescript-eslint/parser": "^1.9.0",
+    "espower-typescript": "^9.0.2",
+    "mocha": "^6.1.4",
+    "nyc": "^14.1.1",
+    "power-assert": "^1.6.1",
     "standard": "^12.0.1",
     "ts-node": "^8.2.0",
     "typescript": "^3.5.1"
@@ -9,5 +16,19 @@
   "standard": {
     "parser": "@typescript-eslint/parser",
     "plugins": [ "@typescript-eslint/eslint-plugin" ]
+  },
+  "scripts": {
+    "start": "node -r ts-node/register app.ts",
+    "test": "_mocha --opts config/.mocha.opts",
+    "cov": "nyc npm run test"
+  },
+  "nyc": {
+    "extends": "@istanbuljs/nyc-config-typescript",
+    "all": true,
+    "check-coverage": true,
+    "cwd": "app/"
+  },
+  "directories": {
+    "test": "app/"
   }
 }
