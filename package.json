@@ -22,16 +22,24 @@
   },
   "scripts": {
     "start": "node -r ts-node/register src/index.ts",
-    "test": "_mocha --opts config/.mocha.opts",
+    "test": "_mocha src/**/*.test.{js,jsx,ts,tsx}",
     "cov": "nyc npm run test",
     "doc": "typedoc --out build/docs 'src/' --exclude '**/*+(index|.test|.spec).+(ts|tsx)'"
+  },
+  "directories": {
+    "test": "src/"
+  },
+  "mocha": {
+    "require": "espower-typescript/guess",
+    "recursive": true,
+    "colors": true,
+    "bail": true,
+    "full-trace": true,
+    "exit": true
   },
   "nyc": {
     "extends": "@istanbuljs/nyc-config-typescript",
     "all": true,
     "cwd": "src/"
-  },
-  "directories": {
-    "test": "src/"
   }
 }

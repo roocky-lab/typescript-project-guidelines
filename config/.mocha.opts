@@ -1,7 +1,0 @@
---require espower-typescript/guess
---colors
---recursive
---bail
---full-trace
---exit
-src/**/*.test.{js,jsx,ts,tsx}

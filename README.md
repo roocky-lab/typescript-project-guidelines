@@ -193,24 +193,7 @@ $ code --install-extension xabikos.javascriptsnippets
 $ npm install --save-dev mocha power-assert espower-typescript @types/mocha @types/node
 ```
 
-创建Mocha的配置文件，统一放在config目录下：
-```bash
-$ code config/.mocha.opts
-```
-
-**config/.mocha.opts**
-```bash
---require espower-typescript/guess
---colors
---recursive
---bail
---full-trace
---exit
-src/**/*.test.{js,jsx,ts,tsx}
-
-```
-
-安装测试覆盖率统计工具[Istanbul](https://github.com/gotwarlost/istanbul)的命令行接口[nyc](https://github.com/istanbuljs/nyc)及[nyc-config-typescript](https://github.com/wizardsoftheweb/nyc-config-typescript)扩展插件:
+再安装测试覆盖率统计工具[Istanbul](https://github.com/gotwarlost/istanbul)的命令行接口[nyc](https://github.com/istanbuljs/nyc)及[nyc-config-typescript](https://github.com/wizardsoftheweb/nyc-config-typescript)扩展插件:
 
 ```bash
 $ npm install --save-dev nyc @istanbuljs/nyc-config-typescript
@@ -223,17 +206,24 @@ $ npm install --save-dev nyc @istanbuljs/nyc-config-typescript
 {
   "scripts": {
     "start": "node -r ts-node/register src/index.ts",
-    "test": "mocha --opts config/.mocha.opts",
-    "cov": "nyc npm run test"
+    "test": "_mocha src/**/*.test.{js,jsx,ts,tsx}",
+    "cov": "nyc npm run test",
+  },
+  "directories": {
+    "test": "src/"
+  },
+  "mocha": {
+    "require": "espower-typescript/guess",
+    "recursive": true,
+    "colors": true,
+    "bail": true,
+    "full-trace": true,
+    "exit": true
   },
   "nyc": {
     "extends": "@istanbuljs/nyc-config-typescript",
     "all": true,
-    "reporter": "text-summary",
     "cwd": "src/"
-  },
-  "directories": {
-    "test": "src/"
   }
 }
 ```
