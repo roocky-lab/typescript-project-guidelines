@@ -1,6 +1,8 @@
 .DS_Store
 .cache
 Thumbs.db
-node_modules
 
-**/.nyc_output
+node_modules/
+build/
+
+**/.nyc_output/

@@ -331,6 +331,60 @@ $ code tsconfig.json
 - [typescript 3.2 新编译选项strictBindCallApply](https://segmentfault.com/a/1190000017720368?utm_source=tag-newest)
 - [noImplicitAny regression in 1.3](https://github.com/Microsoft/TypeScript/issues/1232)
 
+### 6. 集成API文档生成工具：TypeDoc
+
+安装:
+
+```bash
+$ npm install --save-dev typedoc
+```
+
+添加文档生成命令，会自动排除索引及测试文件：
+
+**package.json**
+```json
+{
+  "scripts": {
+    "doc": "typedoc --out build/docs 'app/' --exclude '**/*+(index|.test|.spec).+(ts|tsx)'"
+  }
+}
+```
+
+尝试一下，给代码补上文档注释：
+
+**app/add.ts**
+```javascript
+/**
+ * 这是一个加法实现的示例文件
+ */
+
+/**
+ * 加法示例函数
+ * @param a 第一个加数
+ * @param b 第二个加数
+ * @returns 二者之和
+ */
+function add (a: number, b: number): number {
+  return a + b
+}
+
+export default add
+
+```
+
+```bash
+# 生成文档
+$ npm run doc
+
+# 查看已生成的页面
+$ browse build/docs/globals.html
+$ browse build/docs/index.html
+```
+
+想更多了解文档注释格式或者更换主题：
+- [Document your code](https://typedoc.org/guides/doccomments/)
+- [Themes](https://typedoc.org/guides/themes/)
+
 
 ## Todo
 
@@ -340,7 +394,7 @@ $ code tsconfig.json
   - [X] ~~强制StandardJS编码风格，开启提示、自动修正及段落补全~~
   - [X] ~~集成单元测试工具：Mocha框架、power-assert断言库及Istanbul覆盖率统计~~
   - [X] ~~从严配置TypeScript编译选项~~
-  - [ ] 集成API文档生成工具：TypeDoc
+  - [X] ~~集成API文档生成工具：TypeDoc~~
 
 - server：
   - [ ] 安装Koa及基本中间件
