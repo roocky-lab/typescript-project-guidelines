@@ -1,4 +1,4 @@
-// node -r ts-node/register app.ts
+// node -r ts-node/register src/index.ts
 {
   "version": "0.2.0",
   "configurations": [
@@ -11,7 +11,7 @@
         "ts-node/register"
       ],
       "args": [
-        "${workspaceFolder}/app.ts"
+        "${workspaceFolder}/src/index.ts"
       ]
     }
   ]

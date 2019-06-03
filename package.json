@@ -21,18 +21,17 @@
     ]
   },
   "scripts": {
-    "start": "node -r ts-node/register app.ts",
+    "start": "node -r ts-node/register src/index.ts",
     "test": "_mocha --opts config/.mocha.opts",
     "cov": "nyc npm run test",
-    "doc": "typedoc --out build/docs 'app/' --exclude '**/*+(index|.test|.spec).+(ts|tsx)'"
+    "doc": "typedoc --out build/docs 'src/' --exclude '**/*+(index|.test|.spec).+(ts|tsx)'"
   },
   "nyc": {
     "extends": "@istanbuljs/nyc-config-typescript",
     "all": true,
-    "check-coverage": true,
-    "cwd": "app/"
+    "cwd": "src/"
   },
   "directories": {
-    "test": "app/"
+    "test": "src/"
   }
 }

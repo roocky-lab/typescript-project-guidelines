@@ -65,11 +65,12 @@ $ node -r ts-node/register <xxx.ts>
 $ code .vscode/launch.json
 ```
 
-下面是基本配置，入口文件`app.ts`可以自由指定，`${workspaceFolder}`指工程根目录：
+我们默认`src`是源码目录，`index.ts`为默认程序启动入口。  
+下面是基本配置，入口文件`src/index.ts`，`${workspaceFolder}`指工程根目录:
 
 **.vscode/launch.json**
 ```json
-// node -r ts-node/register app.ts
+// node -r ts-node/register src/index.ts
 {
   "version": "0.2.0",
   "configurations": [
@@ -82,7 +83,7 @@ $ code .vscode/launch.json
         "ts-node/register"
       ],
       "args": [
-        "${workspaceFolder}/app.ts"
+        "${workspaceFolder}/src/index.ts"
       ]
     }
   ]
@@ -93,13 +94,13 @@ $ code .vscode/launch.json
 - [VSCode Launch configurations](https://code.visualstudio.com/docs/editor/debugging#_launch-configurations)
 - [TS-Node for VSCode](https://github.com/TypeStrong/ts-node#visual-studio-code)
 
-配置完毕，在工程根目录创建`app.ts`，敲上一段TypeScript版Hello World:
+配置完毕，创建`src/index.ts`，敲上一段TypeScript版Hello World:
 
 ```bash
-code app.ts
+code src/index.ts
 ```
 
-**app.ts**
+**src/index.ts**
 ```javascript
 function hello(who: string): string {
   return `Hello, ${who}!`
@@ -178,7 +179,7 @@ $ code .vscode/settings.json
 $ code --install-extension xabikos.javascriptsnippets
 ```
 
-最后，重启VS Code，打开`app.ts`，随手写些代码：
+最后，重启VS Code，打开`src/index.ts`，随手写些代码：
 - 尝试输入`fof` / `clg`等缩写，然后敲`Tab`，看段落补全效果；
 - 把代码的缩进、换行、命名弄乱，`Ctrl + S`保存时，观察自动修正效果。 
 
@@ -205,7 +206,8 @@ $ code config/.mocha.opts
 --bail
 --full-trace
 --exit
-app/**/*.test.{js,jsx,ts,tsx}
+src/**/*.test.{js,jsx,ts,tsx}
+
 ```
 
 安装测试覆盖率统计工具[Istanbul](https://github.com/gotwarlost/istanbul)的命令行接口[nyc](https://github.com/istanbuljs/nyc)及[nyc-config-typescript](https://github.com/wizardsoftheweb/nyc-config-typescript)扩展插件:
@@ -214,13 +216,13 @@ app/**/*.test.{js,jsx,ts,tsx}
 $ npm install --save-dev nyc @istanbuljs/nyc-config-typescript
 ```
 
-添加配置及调用命令，其中`app/`是代码和测试用例的主目录，也可另行命名:
+添加配置及调用命令:
 
 **package.json**
 ```json
 {
   "scripts": {
-    "start": "node -r ts-node/register app.ts",
+    "start": "node -r ts-node/register src/index.ts",
     "test": "mocha --opts config/.mocha.opts",
     "cov": "nyc npm run test"
   },
@@ -228,22 +230,22 @@ $ npm install --save-dev nyc @istanbuljs/nyc-config-typescript
     "extends": "@istanbuljs/nyc-config-typescript",
     "all": true,
     "reporter": "text-summary",
-    "cwd": "app/"
+    "cwd": "src/"
   },
   "directories": {
-    "test": "app/"
+    "test": "src/"
   }
 }
 ```
 
-配置完毕，现在测试一下。新建一对文件，分别是代码与用例：
+配置完毕，开始测试。新建`src/calc`文件夹，编写一对文件，分别作为源代码与用例：
 
 ```bash
-$ code app/add.ts app/add.test.ts
+$ code src/calc/add.ts src/calc/add.test.ts
 ```
 
 源代码，简单的加法函数：
-**app/add.ts**
+**src/calc/add.ts**
 ```javascript
 function add (a: number, b: number): number {
   return a + b
@@ -254,13 +256,13 @@ export default add
 ```
 
 测试用例，测试对应的加法函数：
-**app/add.test.ts**
+**src/calc/add.test.ts**
 ```javascript
 /* eslint-env mocha */
 import add from './add'
 import assert = require('assert')
 
-describe('app/add.ts', function () {
+describe('src/calc/add.ts', function () {
   it('1 + 1 = 2', () => {
     assert(add(1, 1) === 2)
   })
@@ -345,14 +347,14 @@ $ npm install --save-dev typedoc
 ```json
 {
   "scripts": {
-    "doc": "typedoc --out build/docs 'app/' --exclude '**/*+(index|.test|.spec).+(ts|tsx)'"
+    "doc": "typedoc --out build/docs 'src/' --exclude '**/*+(index|.test|.spec).+(ts|tsx)'"
   }
 }
 ```
 
 尝试一下，给代码补上文档注释：
 
-**app/add.ts**
+**src/calc/add.ts**
 ```javascript
 /**
  * 这是一个加法实现的示例文件
