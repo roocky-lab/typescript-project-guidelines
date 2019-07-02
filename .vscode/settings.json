@@ -1,6 +1,7 @@
 {
-  // 避免与StandardJS冲突
+  // 避免编辑器配置与Lint规则冲突
   "javascript.validate.enable": false,
+  "editor.tabSize": 2,
 
   // *.js/*.ts文件，保存自动纠错
   "standard.autoFixOnSave": true,

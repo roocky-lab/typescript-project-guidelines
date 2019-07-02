@@ -157,10 +157,11 @@ $ code .vscode/settings.json
 
 ```json
 {
-  // 避免默认校验与StandardJS冲突
+  // 避免编辑器配置与Lint规则冲突
   "javascript.validate.enable": false,
+  "editor.tabSize": 2,
 
-  // *.js/*.ts文件，保存自动修正
+  // *.js/*.ts文件，保存时自动修正
   "standard.autoFixOnSave": true,
   "standard.validate": [
     "javascript",
