@@ -285,6 +285,8 @@ $ code tsconfig.json
 {
   "compilerOptions": {
     /* 基本选项 */
+    "rootDir": ".",
+    "outDir": "build",
     "target": "ES2017",
     "module": "commonjs",
 
@@ -323,6 +325,25 @@ $ code tsconfig.json
 - [TypeScript 2.4: String Enums](https://mariusschulz.com/blog/typescript-2-4-string-enums)
 - [typescript 3.2 新编译选项strictBindCallApply](https://segmentfault.com/a/1190000017720368?utm_source=tag-newest)
 - [noImplicitAny regression in 1.3](https://github.com/Microsoft/TypeScript/issues/1232)
+
+添加构建命令：
+
+**package.json**
+```json
+{
+  "scripts": {
+    "build": "tsc"
+  }
+}
+```
+
+运行：
+
+```bash
+$ npm run build
+```
+
+在**build/src**查看生成后的Javascript文件
 
 ### 6. 集成API文档生成工具：TypeDoc
 

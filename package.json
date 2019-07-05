@@ -22,6 +22,7 @@
   },
   "scripts": {
     "start": "node -r ts-node/register src/index.ts",
+    "build": "tsc",
     "test": "_mocha src/**/*.test.{js,jsx,ts,tsx}",
     "cov": "nyc npm run test",
     "doc": "typedoc --out build/docs 'src/' --exclude '**/*+(index|.test|.spec).+(ts|tsx)'"
