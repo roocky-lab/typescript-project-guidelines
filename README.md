@@ -161,14 +161,31 @@ $ code .vscode/settings.json
 }
 ```
 
-再给VS Code添加段落补全(snippets)功能，安装[JavaScript (ES6) code snippets](https://marketplace.visualstudio.com/items?itemName=xabikos.JavaScriptSnippets)插件：
+再创建ESLint配置文件`.eslintrc.json`，屏蔽部分不实用检查：
 
-```bash
-$ code --install-extension xabikos.javascriptsnippets
+**.eslintrc.json**
+
+```json
+{
+  "extends": "standard-with-typescript",
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+      "project": "./tsconfig.json"
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/explicit-member-accessibility": "off"
+      }
+    }
+  ]
+}
 ```
 
 最后，重启VS Code，打开`src/index.ts`，随手写些代码：
-- 尝试输入`fof` / `clg`等缩写，然后敲`Tab`，看段落补全效果；
 - 把代码的缩进、换行、命名弄乱，`Ctrl + S`保存时，观察自动修正效果。 
 
 ### 4. 集成Mocha单元测试框架及相关配套
