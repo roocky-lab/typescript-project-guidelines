@@ -163,6 +163,10 @@ $ code .vscode/settings.json
 
 再创建ESLint配置文件`.eslintrc.json`，屏蔽部分不实用检查：
 
+```bash
+$ code .eslintrc.json
+```
+
 **.eslintrc.json**
 
 ```json
