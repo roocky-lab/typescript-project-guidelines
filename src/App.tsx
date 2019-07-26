@@ -1,6 +1,7 @@
 import React from 'react'
 import logo from './logo.svg'
 import './App.css'
+import { Button } from 'antd-mobile'
 import { BrowserRouter as Router, Route, Link, Switch, RouteComponentProps } from 'react-router-dom'
 
 const Home = () => (
@@ -50,6 +51,7 @@ const Header = () => (
       <li><Link className="App-link" to="/">Home</Link></li>
       <li><Link className="App-link" to="/about">About</Link></li>
       <li><Link className="App-link" to="/topics">Topics</Link></li>
+      <Button>Start</Button>
     </ul>
   </header>
 )
